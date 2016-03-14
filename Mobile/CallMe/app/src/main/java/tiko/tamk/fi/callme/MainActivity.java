@@ -10,6 +10,7 @@ import android.view.View;
 public class MainActivity extends AppCompatActivity {
     static final int REQUEST_CODE = 10;
     private String phoneNumber = "0";
+    private String url = "http://www.google.fi";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +26,14 @@ public class MainActivity extends AppCompatActivity {
     public void openSettings(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         intent.putExtra("prefix", "+358");
+        intent.putExtra("protocol", "http://");
         startActivityForResult(intent, REQUEST_CODE);
         Log.d("PhoneApp", "toSettings");
     }
 
     public void openBrowser(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.google.com"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.putExtra("url", url);
         startActivity(intent);
     }
 
@@ -43,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("PhoneApp", "result code ok");
                 String number = data.getExtras().getString("number");
                 phoneNumber = number;
+
+                String web = data.getExtras().getString("web");
+                url = web;
+                Log.d("PhoneApp", "url " + url);
             }
         }
     }

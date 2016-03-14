@@ -7,26 +7,14 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="tiko.tamk.fi.callme.SettingsActivity">
+    tools:context="tiko.tamk.fi.mybrowser.MainActivity">
 
-    <EditText
+    <WebView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/myBrowser"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="168dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:hint="Enter your phone number"
-        android:phoneNumber="true" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/webText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="69dp"
-        android:layout_alignEnd="@+id/editText"
-        android:hint="Enter web page" />
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
