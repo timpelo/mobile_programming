@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startService(View view) {
-        Intent intent = new Intent(this, MyService.class);
+        Intent intent = new Intent(this, MyIntentService.class);
         TextView arraySize = (TextView) findViewById(R.id.arraySizeText);
         TextView valueRange = (TextView) findViewById(R.id.valueRangeText);
         TextView numberToFind = (TextView) findViewById(R.id.numberToFindText);
