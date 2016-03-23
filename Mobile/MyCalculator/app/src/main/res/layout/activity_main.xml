@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+    android:orientation="vertical"
+    android:background="@drawable/bg"
+    tools:context="com.tiko.tamk.mycalculator.MainActivity">
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20"
+        android:paddingEnd="5dp"
+        android:textSize="40dp"
+        android:id="@+id/equalsText"
+        android:textAlignment="textEnd"
+        android:inputType="none"
+        style="@style/TAMKTextLand" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingEnd="5dp"
+        android:layout_weight="10"
+        android:textSize="20dp"
+        android:id="@+id/operatorText"
+        android:textAlignment="textEnd"
+        android:inputType="none"
+        style="@style/TAMKTextLand" />
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:layout_gravity="center"
+        android:stretchColumns="*"
+        >
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="25"
+            android:layout_width="match_parent">
+            <Button
+                android:text="7"
+                android:layout_height="match_parent"
+                android:id="@+id/b7"
+                style="@style/TAMKText"
+                android:onClick="sendKey"
+                />
+
+            <Button
+                android:text="8"
+                android:layout_height="match_parent"
+                android:id="@+id/b8"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="9"
+                android:layout_height="match_parent"
+                android:id="@+id/b9"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="/"
+                android:layout_height="match_parent"
+                android:id="@+id/bdivide"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_weight="25">
+            <Button
+                android:text="4"
+                android:layout_height="match_parent"
+                android:id="@+id/b4"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="5"
+                android:layout_height="match_parent"
+                android:id="@+id/b5"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="6"
+                android:layout_height="match_parent"
+                android:id="@+id/b6"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="*"
+                android:layout_height="match_parent"
+                android:id="@+id/btimes"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+        </TableRow>
+        <TableRow
+            android:layout_weight="25">
+            <Button
+                android:text="1"
+                android:layout_height="match_parent"
+                android:id="@+id/b1"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="2"
+                android:layout_height="match_parent"
+                android:id="@+id/b2"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="3"
+                android:layout_height="match_parent"
+                android:id="@+id/b3"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+            <Button
+                android:text="-"
+                android:layout_height="match_parent"
+                android:id="@+id/bminus"
+                style="@style/TAMKText"
+                android:onClick="sendKey"/>
+
+        </TableRow><TableRow
+        android:layout_weight="25">
+        <Button
+            android:text="."
+            android:layout_height="match_parent"
+            android:id="@+id/bdot"
+            style="@style/TAMKText"
+            android:onClick="sendKey"/>
+
+        <Button
+            android:text="0"
+            android:layout_height="match_parent"
+            android:id="@+id/b0"
+            style="@style/TAMKText"
+            android:onClick="sendKey"/>
+
+        <Button
+            android:text="="
+            android:layout_height="match_parent"
+            android:id="@+id/bequals"
+            style="@style/TAMKText"
+            android:onClick="sendKey"/>
+
+        <Button
+            android:text="+"
+            android:layout_height="match_parent"
+            android:id="@+id/bsum"
+            style="@style/TAMKText"
+            android:onClick="sendKey"/>
+
+    </TableRow>
+
+    </TableLayout>
+</LinearLayout>
