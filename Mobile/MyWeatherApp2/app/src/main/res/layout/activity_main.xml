@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="tamk.tiko.com.weatherapp.MainActivity"
+    tools:showIn="@layout/activity_main"
+    android:background="#1ea0fd"
+    android:id="@+id/separator">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignBottom="@+id/cityName"
+        android:layout_marginBottom="-20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Description"
+        android:id="@+id/description"
+        android:textColor="#ffffff"
+        android:textSize="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Tampere"
+        android:id="@+id/cityName"
+        android:textColor="#ffffff"
+        android:textSize="45dp"
+        android:layout_marginBottom="50dp"
+        android:layout_alignBottom="@+id/centerPosition"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:id="@+id/centerPosition"/>
+
+
+    <ImageView
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:layout_alignTop="@+id/centerPosition"
+        android:layout_alignStart="@+id/centerPosition"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/weathericon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:layout_alignTop="@+id/centerPosition"
+        android:layout_alignEnd="@+id/unitText"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="35dp"
+        android:id="@+id/tempertureText"
+        android:textColor="#ffffff"
+        android:textSize="80dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°C"
+        android:layout_alignTop="@+id/centerPosition"
+        android:layout_alignEnd="@+id/centerPosition"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:id="@+id/unitText"
+        android:textColor="#ffffff"
+        android:textSize="35dp" />
+
+</RelativeLayout>
