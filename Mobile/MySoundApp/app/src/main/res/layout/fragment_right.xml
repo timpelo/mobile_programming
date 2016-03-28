@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:textSize="25dp"
+        android:textAlignment="center"
+        android:id="@+id/soundName"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:textSize="40dp"
+        android:text="0"
+        android:textAlignment="center"
+        android:id="@+id/timerText"/>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:max="100"
+        android:id="@+id/timerBar" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:text="Play"
+        android:id="@+id/playButton"/>
+
+</LinearLayout>

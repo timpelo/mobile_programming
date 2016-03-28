@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="match_parent"
+        android:name="fi.tiko.tamk.mysoundapp.ChooseSoundFragment"
+        android:id="@+id/fragmentLeft"/>
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_weight="50"
+        android:layout_height="match_parent"
+        android:name="fi.tiko.tamk.mysoundapp.TriggerSoundSetupFragment"
+        android:id="@+id/fragmentRight"/>
+
+</LinearLayout>
