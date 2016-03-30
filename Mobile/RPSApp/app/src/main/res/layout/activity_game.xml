@@ -9,37 +9,78 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="#ffffff"
-    tools:context="com.tiko.tamk.rpsapp.MainActivity">
+    tools:context="com.tiko.tamk.rpsapp.GameActivity">
+
+    <TextView
+        android:id="@+id/playerScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:text="PLAYER: 0"/>
+
+    <TextView
+        android:id="@+id/aiScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:text="AI: 0"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true">
 
-        <ImageButton
+        <Button
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="200dp"
-            android:background="#000000"
+            android:background="#7a9c3d"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:id="@+id/rock" />
+            android:text="ROCK"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:id="@+id/rock"
+            android:onClick="selectValue"/>
 
-        <ImageButton
+        <Button
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="200dp"
-            android:background="#111111"
+            android:background="#008ec0"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:id="@+id/paper" />
+            android:text="PAPER"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:id="@+id/paper"
+            android:onClick="selectValue"/>
 
-        <ImageButton
+        <Button
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="200dp"
-            android:background="#222222"
-            android:id="@+id/scissors" />
+            android:background="#f99233"
+            android:text="SCISSORS"
+            android:textSize="30dp"
+            android:textColor="#ffffff"
+            android:id="@+id/scissors"
+            android:onClick="selectValue"/>
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="70dp"
+        android:textColor="#000000"
+        android:text=""/>
 
 </RelativeLayout>
