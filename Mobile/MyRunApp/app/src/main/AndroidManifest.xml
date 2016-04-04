@@ -17,8 +17,13 @@
             </intent-filter>
         </activity>
 
+        <!-- for laptop -->
+        <!-- AIzaSyAgPbcam9Q73U9Y6dpubnHeZmUxm7QdZpQ -->
+        <!-- for desktop -->
+        <!-- AIzaSyBodew1y4X5vlgfeUiXZBFmy2uCmnr2rI8 -->
+
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAgPbcam9Q73U9Y6dpubnHeZmUxm7QdZpQ" />
+            android:value="AIzaSyBodew1y4X5vlgfeUiXZBFmy2uCmnr2rI8" />
     </application>
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
