@@ -22,12 +22,16 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    // Final variables for start time and debug tag.
+    final private double START_TIME = System.currentTimeMillis();
+    final private String TAG = "MainActivity";
+
     private Location latestLocation;
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private Marker marker;
     private LocationManager locationManager;
-    final private String TAG = "MainActivity";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,16 +59,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         if(locationManager != null) {
             // Checks permission and gets last location from gps provider.
             if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                    PackageManager.PERMISSION_GRANTED) {
+
                 latestLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
 
-            // If latest location is stored, move marker to latest location.
+            // Gets location of the latest location and moves camera to that part of the
+            // Google Map.
             double longitude = latestLocation.getLongitude();
             double latitude = latestLocation.getLatitude();
-
-            Log.d(TAG, longitude + ", " + latitude);
-
             LatLng latLng = new LatLng(latitude, longitude);
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
 
@@ -76,15 +80,25 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 marker = googleMap.addMarker(new MarkerOptions().position(latLng));
             }
 
+            // Creates new server connection for storing current location to database.
             ServerConnection serverConnection = new ServerConnection(this);
-            serverConnection.execute(latitude, longitude);
+            serverConnection.execute(latitude, longitude, START_TIME);
         }
     }
 
     public void registerLocationListener() {
+
+        // Checks permissions for gps.
         if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 5, new LocationListener() {
+                this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+                PackageManager.PERMISSION_GRANTED) {
+
+            // Registers location listener for location manager.
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    5000,
+                    20,
+                    new LocationListener() {
+
                 @Override
                 public void onLocationChanged(Location location) {
                     updateLocation();

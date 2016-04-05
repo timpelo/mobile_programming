@@ -3,11 +3,14 @@ package com.tiko.tamk.myrunapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -25,29 +28,37 @@ import java.util.Set;
  */
 public class ServerConnection extends AsyncTask<Double, Void, Integer> {
 
+    final private String TAG = "ServerConnection";
     HttpURLConnection conn;
     Activity host;
+    URL url;
 
     public ServerConnection(Activity host) {
         this.host = host;
     }
     @Override
     protected Integer doInBackground(Double... params) {
+
         try {
+            // Creates url string with given parameters.
             String urlString = "http://koti.tamk.fi/~e4jtimon/backend/location_reciever.php?"
                     + "lat=" + params[0]
-                    + "&lon=" + params[1];
+                    + "&lon=" + params[1]
+                    + "&start=" + params[2]
+                    + "&key=" + host.getResources().getString(R.string.mykey);
 
-            URL url = new URL(urlString);
-            conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
+            // Creates new url.
+            url = new URL(urlString);
 
-            // Writes data to output stream;
-            //OutputStream os = conn.getOutputStream();
-            //BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            //writer.write("lat" + params[0] + "lon" + params[1]);
+            // Opens new url connection.
+            conn = (HttpURLConnection) url
+                    .openConnection();
 
-            conn.connect();
+            // Creates new input stream reader.
+            InputStream in = conn.getInputStream();
+            InputStreamReader reader = new InputStreamReader(in);
+            reader.read();
+
         } catch (MalformedURLException e) {
             return 400;
         } catch (IOException e) {
