@@ -1,6 +1,10 @@
 package com.tiko.tamk.myrunapp;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -17,26 +21,34 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, MapActivity{
 
-    // Final variables for start time and debug tag.
-    final private double START_TIME = System.currentTimeMillis();
     final private String TAG = "MainActivity";
+    private final String BROADCAST_ACTION = "LOCATION_UPDATE";
 
     private Location latestLocation;
     private MapFragment mapFragment;
     private GoogleMap googleMap;
     private Marker marker;
-    private LocationManager locationManager;
+    private ConnectionService service;
+    private MyBroadcastReceiver receiver;
+    private PolylineOptions lineOptions;
+    private Polyline line;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lineOptions = new PolylineOptions();
 
         // Finds map fragment.
         mapFragment = (MapFragment) getFragmentManager()
@@ -44,81 +56,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         mapFragment.getMapAsync(this);
 
+        // Creates broadcast receiver.
+        receiver = new MyBroadcastReceiver(this);
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(BROADCAST_ACTION);
+        registerReceiver(receiver, filter);
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(receiver);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.googleMap = googleMap;
-        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        registerLocationListener();
+
+        // Starts service for location updates.
+        Intent intent = new Intent(this, ConnectionService.class);
+        startService(intent);
     }
 
-    public void updateLocation() {
-        if(locationManager != null) {
-            // Checks permission and gets last location from gps provider.
-            if (ActivityCompat.checkSelfPermission(
-                    this, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                    PackageManager.PERMISSION_GRANTED) {
+    public void updateMap(double longitude, double latitude) {
 
-                latestLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            }
+        LatLng latLng = new LatLng(latitude, longitude);
+        lineOptions.add(latLng);
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
 
-            // Gets location of the latest location and moves camera to that part of the
-            // Google Map.
-            double longitude = latestLocation.getLongitude();
-            double latitude = latestLocation.getLatitude();
-            LatLng latLng = new LatLng(latitude, longitude);
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f));
-
-            // Add marker to map. If there is already one, remove it.
-            if(marker != null) {
-                marker.remove();
-                marker = googleMap.addMarker(new MarkerOptions().position(latLng));
-            } else {
-                marker = googleMap.addMarker(new MarkerOptions().position(latLng));
-            }
-
-            // Creates new server connection for storing current location to database.
-            ServerConnection serverConnection = new ServerConnection(this);
-            serverConnection.execute(latitude, longitude, START_TIME);
+        // Add marker to map. If there is already one, remove it.
+        if(marker != null) {
+            marker.remove();
+            marker = googleMap.addMarker(new MarkerOptions().position(latLng));
+        } else {
+            marker = googleMap.addMarker(new MarkerOptions().position(latLng));
         }
+        line = googleMap.addPolyline(lineOptions);
     }
 
-    public void registerLocationListener() {
-
-        // Checks permissions for gps.
-        if (ActivityCompat.checkSelfPermission(
-                this, Manifest.permission.ACCESS_FINE_LOCATION) ==
-                PackageManager.PERMISSION_GRANTED) {
-
-            // Registers location listener for location manager.
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                    5000,
-                    20,
-                    new LocationListener() {
-
-                @Override
-                public void onLocationChanged(Location location) {
-                    updateLocation();
-                }
-
-                @Override
-                public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                }
-
-                @Override
-                public void onProviderEnabled(String provider) {
-
-                }
-
-                @Override
-                public void onProviderDisabled(String provider) {
-
-                }
-            });
-        }
+    @Override
+    public void onDestroy() {
+        Intent intent = new Intent(this, ConnectionService.class);
+        stopService(intent);
+        super.onDestroy();
     }
 }

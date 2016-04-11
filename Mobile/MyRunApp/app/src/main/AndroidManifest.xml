@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tiko.tamk.myrunapp">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,11 +24,13 @@
         <!-- for desktop -->
         <!-- AIzaSyBodew1y4X5vlgfeUiXZBFmy2uCmnr2rI8 -->
 
-        <meta-data android:name="com.google.android.geo.API_KEY"
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBodew1y4X5vlgfeUiXZBFmy2uCmnr2rI8" />
-    </application>
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+        <service
+            android:name=".ConnectionService"
+            android:exported="false"></service>
+    </application>
 
 </manifest>

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyRunApp</string>
     <string name="mykey">a37zZ6PZiMfrfGO6x5IZ</string>
+    <string name="google_app_id">com.tiko.tamk.myrunapp</string>
 </resources>

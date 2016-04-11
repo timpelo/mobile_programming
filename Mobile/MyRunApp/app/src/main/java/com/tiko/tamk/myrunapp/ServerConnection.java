@@ -29,12 +29,12 @@ import java.util.Set;
 public class ServerConnection extends AsyncTask<Double, Void, Integer> {
 
     final private String TAG = "ServerConnection";
+    private String key;
     HttpURLConnection conn;
-    Activity host;
     URL url;
 
-    public ServerConnection(Activity host) {
-        this.host = host;
+    public ServerConnection(String key) {
+        this.key = key;
     }
     @Override
     protected Integer doInBackground(Double... params) {
@@ -45,7 +45,7 @@ public class ServerConnection extends AsyncTask<Double, Void, Integer> {
                     + "lat=" + params[0]
                     + "&lon=" + params[1]
                     + "&start=" + params[2]
-                    + "&key=" + host.getResources().getString(R.string.mykey);
+                    + "&key=" + key;
 
             // Creates new url.
             url = new URL(urlString);
@@ -73,13 +73,13 @@ public class ServerConnection extends AsyncTask<Double, Void, Integer> {
         // Checks return code.
         switch (result) {
             case 200:
-                Toast.makeText(host, "Connection OK", Toast.LENGTH_SHORT).show();
+
                 break;
             case 400:
-                Toast.makeText(host, "Malformed URL", Toast.LENGTH_SHORT).show();
+
                 break;
             case 500:
-                Toast.makeText(host, "IO Exception", Toast.LENGTH_SHORT).show();
+
                 break;
         }
 
