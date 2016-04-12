@@ -26,6 +26,7 @@ public class ConnectionService extends Service implements Runnable {
     private double START_TIME = System.currentTimeMillis();
     private LocationManager locationManager;
     private Location latestLocation;
+    private MyListener locationListener;
 
 
     public ConnectionService() {
@@ -37,7 +38,9 @@ public class ConnectionService extends Service implements Runnable {
         super.onStartCommand(intent, flags, startId);
         Log.d(TAG, "onStartCommand()");
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        locationListener = new MyListener();
         registerLocationListener();
+
 
         new Thread(this).start();
         return START_STICKY;
@@ -47,7 +50,8 @@ public class ConnectionService extends Service implements Runnable {
     public void run() {
         Log.d(TAG, "run()");
 
-        while(true) {}
+        while (true) {
+        }
     }
 
     @Override
@@ -68,34 +72,12 @@ public class ConnectionService extends Service implements Runnable {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                     5000,
                     20,
-                    new LocationListener() {
-
-                        @Override
-                        public void onLocationChanged(Location location) {
-                            updateLocation();
-                            Log.d(TAG, "location updated");
-                        }
-
-                        @Override
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
-
-                        }
-
-                        @Override
-                        public void onProviderEnabled(String provider) {
-
-                        }
-
-                        @Override
-                        public void onProviderDisabled(String provider) {
-
-                        }
-                    });
+                    locationListener);
         }
     }
 
     public void updateLocation() {
-        if(locationManager != null) {
+        if (locationManager != null) {
             // Checks permission and gets last location from gps provider.
             if (ActivityCompat.checkSelfPermission(
                     this, Manifest.permission.ACCESS_FINE_LOCATION) ==
@@ -126,5 +108,39 @@ public class ConnectionService extends Service implements Runnable {
 
     public void onDestroy() {
         Log.d(TAG, "onDestroy()");
+
+        // Checks permission and unregisters location listener.
+        if (ActivityCompat.checkSelfPermission(
+                this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            Log.d(TAG, "listener unregistered");
+            locationManager.removeUpdates(locationListener);
+        }
+    }
+
+    public class MyListener implements LocationListener {
+
+        public MyListener() {
+
+        }
+        @Override
+        public void onLocationChanged(Location location) {
+            updateLocation();
+            Log.d(TAG, "location updated");
+        }
+
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+
+        }
     }
 }
